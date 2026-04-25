@@ -627,11 +627,35 @@ function Calculator() {
   );
 }
 
+const SEND_EMAIL_URL = "https://functions.poehali.dev/4155d2e9-ec3d-4a6b-8e89-dd3663c8ffcc";
+
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [activePortfolio, setActivePortfolio] = useState<number | null>(null);
   const [contactForm, setContactForm] = useState({ name: "", phone: "", service: "" });
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactForm.name.trim() || !contactForm.phone.trim()) return;
+    setFormStatus("sending");
+    try {
+      const res = await fetch(SEND_EMAIL_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(contactForm),
+      });
+      if (res.ok) {
+        setFormStatus("success");
+        setContactForm({ name: "", phone: "", service: "" });
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  };
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);
@@ -1056,38 +1080,75 @@ const Index = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-4xl mx-auto">
             <RevealSection>
-              <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  placeholder="Ваше имя"
+                  placeholder="Ваше имя *"
                   value={contactForm.name}
                   onChange={e => setContactForm({ ...contactForm, name: e.target.value })}
-                  className="w-full bg-[#111] border border-white/10 rounded px-4 py-4 text-white placeholder-white/25 focus:outline-none focus:border-[#FFE600]/50 transition-colors font-rubik"
+                  required
+                  disabled={formStatus === "sending" || formStatus === "success"}
+                  className="w-full bg-[#111] border border-white/10 rounded px-4 py-4 text-white placeholder-white/25 focus:outline-none focus:border-[#FFE600]/50 transition-colors font-rubik disabled:opacity-50"
                 />
                 <input
                   type="tel"
-                  placeholder="Номер телефона"
+                  placeholder="Номер телефона *"
                   value={contactForm.phone}
                   onChange={e => setContactForm({ ...contactForm, phone: e.target.value })}
-                  className="w-full bg-[#111] border border-white/10 rounded px-4 py-4 text-white placeholder-white/25 focus:outline-none focus:border-[#FFE600]/50 transition-colors font-rubik"
+                  required
+                  disabled={formStatus === "sending" || formStatus === "success"}
+                  className="w-full bg-[#111] border border-white/10 rounded px-4 py-4 text-white placeholder-white/25 focus:outline-none focus:border-[#FFE600]/50 transition-colors font-rubik disabled:opacity-50"
                 />
                 <select
                   value={contactForm.service}
                   onChange={e => setContactForm({ ...contactForm, service: e.target.value })}
-                  className="w-full bg-[#111] border border-white/10 rounded px-4 py-4 text-white focus:outline-none focus:border-[#FFE600]/50 transition-colors font-rubik appearance-none"
+                  disabled={formStatus === "sending" || formStatus === "success"}
+                  className="w-full bg-[#111] border border-white/10 rounded px-4 py-4 text-white focus:outline-none focus:border-[#FFE600]/50 transition-colors font-rubik appearance-none disabled:opacity-50"
                 >
                   <option value="" className="bg-[#111]">Выберите услугу</option>
                   {SERVICES.map(s => (
                     <option key={s.title} value={s.title} className="bg-[#111]">{s.title}</option>
                   ))}
                 </select>
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded font-oswald text-lg font-bold tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5"
-                  style={{ background: "#FFE600", color: "#0A0A0A", boxShadow: "0 0 15px #FFE600, 0 0 40px rgba(255,107,0,0.4)" }}
-                >
-                  Отправить заявку
-                </button>
+
+                {formStatus === "success" && (
+                  <div className="flex items-center gap-3 px-4 py-4 rounded-lg" style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.3)" }}>
+                    <Icon name="CheckCircle" size={20} style={{ color: "#22C55E" }} />
+                    <div>
+                      <p className="text-[#22C55E] font-oswald font-bold text-sm uppercase tracking-wide">Заявка отправлена!</p>
+                      <p className="text-white/50 text-xs mt-0.5">Перезвоним в рабочее время Пн–Пт 10:00–18:00</p>
+                    </div>
+                  </div>
+                )}
+
+                {formStatus === "error" && (
+                  <div className="flex items-center gap-3 px-4 py-3 rounded-lg" style={{ background: "rgba(255,45,85,0.1)", border: "1px solid rgba(255,45,85,0.3)" }}>
+                    <Icon name="AlertCircle" size={18} style={{ color: "#FF2D55" }} />
+                    <p className="text-[#FF2D55] text-sm">Ошибка отправки. Позвоните нам: +7 (921) 618-98-86</p>
+                  </div>
+                )}
+
+                {formStatus !== "success" && (
+                  <button
+                    type="submit"
+                    disabled={formStatus === "sending"}
+                    className="w-full py-4 rounded font-oswald text-lg font-bold tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    style={{ background: "#FFE600", color: "#0A0A0A", boxShadow: "0 0 15px #FFE600, 0 0 40px rgba(255,107,0,0.4)" }}
+                  >
+                    {formStatus === "sending" ? "Отправляем..." : "Отправить заявку"}
+                  </button>
+                )}
+
+                {formStatus === "success" && (
+                  <button
+                    type="button"
+                    onClick={() => setFormStatus("idle")}
+                    className="w-full py-3 rounded font-oswald text-sm tracking-widest uppercase text-white/40 hover:text-white/70 transition-colors border border-white/10"
+                  >
+                    Отправить ещё одну заявку
+                  </button>
+                )}
+
                 <p className="text-white/20 text-xs text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
               </form>
             </RevealSection>
