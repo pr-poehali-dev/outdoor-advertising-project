@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/files/7b919976-8328-4a3a-9faf-554f2dfe9a1c.jpg";
@@ -6,6 +6,7 @@ const HERO_IMAGE = "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13
 const NAV_LINKS = [
   { label: "Главная", href: "#hero" },
   { label: "Услуги", href: "#services" },
+  { label: "Калькулятор", href: "#calc" },
   { label: "Портфолио", href: "#portfolio" },
   { label: "О компании", href: "#about" },
   { label: "Контакты", href: "#contacts" },
@@ -70,48 +71,24 @@ const SERVICES = [
   },
   {
     icon: "Box",
-    title: "3D-печать",
-    desc: "Сложные формы и детали, изготовленные на 3D-принтере. Прототипы и готовые изделия.",
+    title: "3D-печать и печать по фото",
+    desc: "Сложные формы и детали на 3D-принтере, фотопечать высокого разрешения на любых носителях. Прототипы и готовые изделия.",
     color: "#FFE600",
     tag: "НОВИНКА",
   },
 ];
 
 const PORTFOLIO = [
-  {
-    title: "Кафе «Восток»",
-    type: "Объёмные буквы + Неон",
-    img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80",
-  },
-  {
-    title: "ТЦ Меридиан",
-    type: "Световые короба",
-    img: "https://images.unsplash.com/photo-1567653418876-5bb0e566e1c2?w=600&q=80",
-  },
-  {
-    title: "Barbershop MAXIM",
-    type: "Гибкий неон",
-    img: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80",
-  },
-  {
-    title: "Офис IT-компании",
-    type: "Плоские буквы + 3D",
-    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80",
-  },
-  {
-    title: "Ресторан SAKURA",
-    type: "Вывеска + Подсветка",
-    img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=80",
-  },
-  {
-    title: "Автосалон Drive",
-    type: "Баннеры + Короба",
-    img: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=600&q=80",
-  },
+  { title: "Кафе «Восток»", type: "Объёмные буквы + Неон", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" },
+  { title: "ТЦ Меридиан", type: "Световые короба", img: "https://images.unsplash.com/photo-1567653418876-5bb0e566e1c2?w=600&q=80" },
+  { title: "Barbershop MAXIM", type: "Гибкий неон", img: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80" },
+  { title: "Офис IT-компании", type: "Плоские буквы + 3D", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" },
+  { title: "Ресторан SAKURA", type: "Вывеска + Подсветка", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=80" },
+  { title: "Автосалон Drive", type: "Баннеры + Короба", img: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=600&q=80" },
 ];
 
 const STATS = [
-  { value: "12+", label: "лет на рынке" },
+  { value: "10+", label: "лет на рынке" },
   { value: "850+", label: "проектов сдано" },
   { value: "3", label: "дня — средний срок" },
   { value: "100%", label: "гарантия качества" },
@@ -122,10 +99,23 @@ const MARQUEE_ITEMS = [
   "ШТЕНДЕРЫ", "ТАБЛИЧКИ", "ДИЗАЙН", "ПЛОСКИЕ БУКВЫ", "ВЫВЕСКИ",
 ];
 
+const CALC_ITEMS = [
+  { label: "Изготовление баннеров", price: 1300, unit: "м²", icon: "Image" },
+  { label: "Информационный стенд", price: 2000, unit: "шт", icon: "PanelTop" },
+  { label: "Изготовление вывески", price: 3000, unit: "шт", icon: "Store" },
+  { label: "Объёмные буквы", price: 120, unit: "см²", icon: "Type" },
+  { label: "Плоские буквы", price: 60, unit: "см²", icon: "AlignLeft" },
+  { label: "Таблички", price: 600, unit: "шт", icon: "MapPin" },
+  { label: "Штендеры", price: 7500, unit: "шт", icon: "Triangle" },
+  { label: "Оклейка витрин", price: 2000, unit: "м²", icon: "Square" },
+  { label: "Монтаж наружной рекламы", price: 1500, unit: "шт", icon: "Wrench" },
+];
+
+const NEON_COLORS = ["#00F5FF", "#FF2D55", "#FFE600", "#FF6B00", "#A855F7", "#22C55E", "#FFFFFF"];
+
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -136,7 +126,6 @@ function useScrollReveal() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
   return { ref, visible };
 }
 
@@ -152,35 +141,43 @@ function RevealSection({ children, className = "" }: { children: React.ReactNode
   );
 }
 
-function PreviewModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function PreviewModal({ open, onClose, onOrder }: { open: boolean; onClose: () => void; onOrder: () => void }) {
   const [text, setText] = useState("ВАША ВЫВЕСКА");
   const [style, setStyle] = useState<"neon" | "3d" | "banner">("neon");
+  const [neonColor, setNeonColor] = useState("#00F5FF");
+  const [fontSize, setFontSize] = useState(40);
 
   if (!open) return null;
+
+  const handleOrder = () => {
+    onClose();
+    onOrder();
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
       <div
-        className="relative bg-[#111] border border-[#FFE600]/30 rounded-lg w-full max-w-2xl p-8 z-10"
+        className="relative bg-[#111] border border-[#FFE600]/30 rounded-lg w-full max-w-2xl p-8 z-10 max-h-[90vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}
       >
         <button onClick={onClose} className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
           <Icon name="X" size={24} />
         </button>
         <h3 className="font-oswald text-2xl text-[#FFE600] mb-2 uppercase tracking-wider">3D-превью вывески</h3>
-        <p className="text-white/50 text-sm mb-6">Введи текст и выбери стиль — увидишь, как будет выглядеть</p>
+        <p className="text-white/50 text-sm mb-5">Введи текст, выбери стиль, цвет и размер</p>
 
         <input
           type="text"
           value={text}
           onChange={e => setText(e.target.value.toUpperCase())}
           maxLength={20}
-          className="w-full bg-[#1a1a1a] border border-white/10 rounded px-4 py-3 text-white font-oswald text-lg uppercase focus:outline-none focus:border-[#FFE600]/60 transition-colors mb-5"
+          className="w-full bg-[#1a1a1a] border border-white/10 rounded px-4 py-3 text-white font-oswald text-lg uppercase focus:outline-none focus:border-[#FFE600]/60 transition-colors mb-4"
           placeholder="ВАША ВЫВЕСКА"
         />
 
-        <div className="flex gap-3 mb-8">
+        {/* Style tabs */}
+        <div className="flex gap-3 mb-5">
           {(["neon", "3d", "banner"] as const).map(s => (
             <button
               key={s}
@@ -196,9 +193,48 @@ function PreviewModal({ open, onClose }: { open: boolean; onClose: () => void })
           ))}
         </div>
 
+        {/* Color palette (only for neon and 3d) */}
+        {(style === "neon" || style === "3d") && (
+          <div className="mb-5">
+            <p className="text-white/40 text-xs font-oswald tracking-wider uppercase mb-2">Цвет текста</p>
+            <div className="flex gap-2 flex-wrap">
+              {NEON_COLORS.map(c => (
+                <button
+                  key={c}
+                  onClick={() => setNeonColor(c)}
+                  className="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110"
+                  style={{
+                    background: c,
+                    borderColor: neonColor === c ? "#fff" : "transparent",
+                    boxShadow: neonColor === c ? `0 0 8px ${c}` : "none",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Font size slider */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-white/40 text-xs font-oswald tracking-wider uppercase">Размер текста</p>
+            <span className="text-[#FFE600] text-xs font-oswald">{fontSize}px</span>
+          </div>
+          <input
+            type="range"
+            min={20}
+            max={72}
+            value={fontSize}
+            onChange={e => setFontSize(Number(e.target.value))}
+            className="w-full accent-[#FFE600] h-1 cursor-pointer"
+          />
+        </div>
+
+        {/* Preview canvas */}
         <div
-          className="relative rounded-lg overflow-hidden flex items-center justify-center h-52"
+          className="relative rounded-lg overflow-hidden flex items-center justify-center"
           style={{
+            height: "200px",
             backgroundImage: "url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=60')",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -207,10 +243,12 @@ function PreviewModal({ open, onClose }: { open: boolean; onClose: () => void })
           <div className="absolute inset-0 bg-black/55" />
           {style === "neon" && (
             <span
-              className="relative font-oswald text-4xl font-bold tracking-widest"
+              className="relative font-oswald font-bold tracking-widest px-4 text-center"
               style={{
-                color: "#00F5FF",
-                textShadow: "0 0 10px #00F5FF, 0 0 30px #00F5FF, 0 0 70px #00F5FF",
+                color: neonColor,
+                fontSize: `${fontSize}px`,
+                textShadow: `0 0 10px ${neonColor}, 0 0 30px ${neonColor}, 0 0 70px ${neonColor}`,
+                lineHeight: 1.2,
               }}
             >
               {text || "ВАША ВЫВЕСКА"}
@@ -218,10 +256,12 @@ function PreviewModal({ open, onClose }: { open: boolean; onClose: () => void })
           )}
           {style === "3d" && (
             <span
-              className="relative font-oswald text-4xl font-bold tracking-widest"
+              className="relative font-oswald font-bold tracking-widest px-4 text-center"
               style={{
-                color: "#FFE600",
-                textShadow: "3px 3px 0 #a08000, 6px 6px 0 #7a6000, 0 0 25px rgba(255,230,0,0.6)",
+                color: neonColor,
+                fontSize: `${fontSize}px`,
+                textShadow: `3px 3px 0 rgba(0,0,0,0.8), 6px 6px 0 rgba(0,0,0,0.5), 0 0 25px ${neonColor}60`,
+                lineHeight: 1.2,
               }}
             >
               {text || "ВАША ВЫВЕСКА"}
@@ -229,7 +269,10 @@ function PreviewModal({ open, onClose }: { open: boolean; onClose: () => void })
           )}
           {style === "banner" && (
             <div className="relative px-8 py-4 rounded" style={{ background: "rgba(255,107,0,0.92)", border: "3px solid #FFE600" }}>
-              <span className="font-oswald text-3xl font-bold tracking-wider text-white">
+              <span
+                className="font-oswald font-bold tracking-wider text-white block text-center"
+                style={{ fontSize: `${Math.min(fontSize, 48)}px` }}
+              >
                 {text || "ВАША ВЫВЕСКА"}
               </span>
             </div>
@@ -237,14 +280,162 @@ function PreviewModal({ open, onClose }: { open: boolean; onClose: () => void })
         </div>
 
         <button
-          className="mt-6 w-full py-4 rounded font-oswald text-lg font-bold tracking-widest uppercase transition-all duration-300"
+          className="mt-6 w-full py-4 rounded font-oswald text-lg font-bold tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5"
           style={{ background: "#FFE600", color: "#0A0A0A", boxShadow: "0 0 15px #FFE600, 0 0 40px rgba(255,107,0,0.5)" }}
-          onClick={onClose}
+          onClick={handleOrder}
         >
           Заказать этот вариант →
         </button>
       </div>
     </div>
+  );
+}
+
+function Calculator() {
+  const [quantities, setQuantities] = useState<Record<string, number>>(
+    Object.fromEntries(CALC_ITEMS.map(i => [i.label, 0]))
+  );
+
+  const total = CALC_ITEMS.reduce((sum, item) => sum + item.price * (quantities[item.label] || 0), 0);
+
+  const setQty = (label: string, val: number) => {
+    setQuantities(prev => ({ ...prev, [label]: Math.max(0, val) }));
+  };
+
+  return (
+    <section id="calc" className="py-32 relative">
+      <div
+        className="absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: "linear-gradient(rgba(255,107,0,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,0,0.025) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      <div className="max-w-7xl mx-auto px-6 relative">
+        <RevealSection>
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <span className="font-oswald text-sm tracking-widest uppercase mb-3 block" style={{ color: "#FF6B00" }}>
+                Прозрачные цены
+              </span>
+              <h2 className="font-oswald font-bold text-white leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
+                КАЛЬКУЛЯТОР
+                <span
+                  className="ml-4"
+                  style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)", color: "transparent" }}
+                >
+                  СТОИМОСТИ
+                </span>
+              </h2>
+              <p className="text-white/40 mt-3 font-rubik text-sm">Укажите количество — узнайте примерную стоимость заказа</p>
+            </div>
+          </div>
+        </RevealSection>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-3">
+            {CALC_ITEMS.map(item => (
+              <RevealSection key={item.label}>
+                <div className="group flex items-center justify-between bg-[#111] border border-white/5 rounded-lg px-5 py-4 hover:border-[#FF6B00]/30 transition-all duration-300">
+                  <div className="flex items-center gap-4 flex-1 min-w-0">
+                    <div
+                      className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0"
+                      style={{ background: "rgba(255,107,0,0.1)", border: "1px solid rgba(255,107,0,0.2)" }}
+                    >
+                      <Icon name={item.icon} size={18} style={{ color: "#FF6B00" }} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-white font-rubik text-sm font-medium truncate">{item.label}</p>
+                      <p className="text-white/35 text-xs">от {item.price.toLocaleString("ru-RU")} ₽ / {item.unit}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 ml-4 flex-shrink-0">
+                    <button
+                      onClick={() => setQty(item.label, (quantities[item.label] || 0) - 1)}
+                      className="w-8 h-8 rounded border border-white/10 flex items-center justify-center text-white/60 hover:border-[#FF6B00]/50 hover:text-[#FF6B00] transition-all"
+                    >
+                      <Icon name="Minus" size={14} />
+                    </button>
+                    <input
+                      type="number"
+                      min={0}
+                      value={quantities[item.label] || 0}
+                      onChange={e => setQty(item.label, Number(e.target.value))}
+                      className="w-14 text-center bg-[#1a1a1a] border border-white/10 rounded px-2 py-1 text-white text-sm focus:outline-none focus:border-[#FF6B00]/50"
+                    />
+                    <button
+                      onClick={() => setQty(item.label, (quantities[item.label] || 0) + 1)}
+                      className="w-8 h-8 rounded border border-white/10 flex items-center justify-center text-white/60 hover:border-[#FF6B00]/50 hover:text-[#FF6B00] transition-all"
+                    >
+                      <Icon name="Plus" size={14} />
+                    </button>
+                    <div className="w-28 text-right">
+                      <span className="font-oswald text-sm" style={{ color: quantities[item.label] ? "#FF6B00" : "rgba(255,255,255,0.2)" }}>
+                        {(item.price * (quantities[item.label] || 0)).toLocaleString("ru-RU")} ₽
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
+
+          <RevealSection>
+            <div
+              className="sticky top-24 bg-[#111] border rounded-lg p-6"
+              style={{ borderColor: total > 0 ? "rgba(255,107,0,0.4)" : "rgba(255,255,255,0.05)" }}
+            >
+              <h3 className="font-oswald text-lg text-white uppercase tracking-wider mb-6">Итого</h3>
+              <div className="space-y-3 mb-6 max-h-60 overflow-y-auto pr-1">
+                {CALC_ITEMS.filter(i => quantities[i.label] > 0).map(item => (
+                  <div key={item.label} className="flex justify-between items-start gap-2 text-sm">
+                    <span className="text-white/50 font-rubik leading-tight">{item.label} × {quantities[item.label]}</span>
+                    <span className="text-white/80 font-oswald whitespace-nowrap">
+                      {(item.price * quantities[item.label]).toLocaleString("ru-RU")} ₽
+                    </span>
+                  </div>
+                ))}
+                {total === 0 && (
+                  <p className="text-white/25 text-sm text-center py-4">Добавьте позиции для расчёта</p>
+                )}
+              </div>
+
+              <div className="border-t border-white/10 pt-4 mb-6">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/50 font-rubik text-sm">Итоговая сумма</span>
+                  <span
+                    className="font-oswald text-2xl font-bold"
+                    style={{ color: total > 0 ? "#FF6B00" : "rgba(255,255,255,0.2)" }}
+                  >
+                    {total.toLocaleString("ru-RU")} ₽
+                  </span>
+                </div>
+                <p className="text-white/25 text-xs mt-1">* Финальная стоимость уточняется при заказе</p>
+              </div>
+
+              <button
+                onClick={() => document.querySelector("#contacts")?.scrollIntoView({ behavior: "smooth" })}
+                className="w-full py-4 rounded font-oswald font-bold tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5"
+                style={{
+                  background: total > 0 ? "#FF6B00" : "#222",
+                  color: total > 0 ? "#fff" : "rgba(255,255,255,0.3)",
+                  boxShadow: total > 0 ? "0 0 15px rgba(255,107,0,0.5)" : "none",
+                }}
+              >
+                Оформить заявку
+              </button>
+
+              <button
+                onClick={() => setQuantities(Object.fromEntries(CALC_ITEMS.map(i => [i.label, 0])))}
+                className="w-full mt-2 py-2 rounded font-oswald text-sm tracking-wider text-white/25 hover:text-white/50 transition-colors uppercase"
+              >
+                Очистить
+              </button>
+            </div>
+          </RevealSection>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -259,6 +450,8 @@ const Index = () => {
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToContacts = () => scrollTo("#contacts");
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] font-rubik overflow-x-hidden">
 
@@ -266,10 +459,10 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-40 bg-[#0A0A0A]/85 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
           <span className="font-oswald text-2xl font-bold tracking-wider" style={{ color: "#FFE600", textShadow: "0 0 10px #FFE600, 0 0 30px #FF6B00" }}>
-            НЕОНАРТ
+            ВИЗУАЛ ПРО
           </span>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {NAV_LINKS.map(link => (
               <button
                 key={link.href}
@@ -346,24 +539,17 @@ const Index = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-36">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8" style={{ background: "rgba(255,230,0,0.1)", border: "1px solid rgba(255,230,0,0.25)" }}>
             <span className="w-2 h-2 rounded-full bg-[#FFE600] animate-pulse inline-block" />
-            <span className="text-[#FFE600] text-sm font-oswald tracking-widest uppercase">Производство в Москве</span>
+            <span className="text-[#FFE600] text-sm font-oswald tracking-widest uppercase">Производство в Калининграде</span>
           </div>
 
           <h1 className="font-oswald font-bold leading-none mb-6" style={{ fontSize: "clamp(3rem, 10vw, 8rem)" }}>
             <span className="block text-white">НАРУЖНАЯ</span>
-            <span
-              className="block"
-              style={{ color: "#FFE600", textShadow: "0 0 20px #FFE600, 0 0 50px #FFE600, 0 0 90px #FF6B00" }}
-            >
+            <span className="block" style={{ color: "#FFE600", textShadow: "0 0 20px #FFE600, 0 0 50px #FFE600, 0 0 90px #FF6B00" }}>
               РЕКЛАМА
             </span>
             <span
               className="block"
-              style={{
-                WebkitTextStroke: "2px rgba(255,255,255,0.15)",
-                color: "transparent",
-                fontSize: "clamp(2rem, 7vw, 6rem)",
-              }}
+              style={{ WebkitTextStroke: "2px rgba(255,255,255,0.15)", color: "transparent", fontSize: "clamp(2rem, 7vw, 6rem)" }}
             >
               КОТОРУЮ ВИДЯТ
             </span>
@@ -438,10 +624,7 @@ const Index = () => {
                 </span>
                 <h2 className="font-oswald font-bold text-white leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
                   НАШИ
-                  <span
-                    className="ml-4"
-                    style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)", color: "transparent" }}
-                  >
+                  <span className="ml-4" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)", color: "transparent" }}>
                     УСЛУГИ
                   </span>
                 </h2>
@@ -453,11 +636,12 @@ const Index = () => {
           </RevealSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SERVICES.map((service, i) => (
+            {SERVICES.map((service) => (
               <RevealSection key={service.title}>
                 <div
-                  className="group relative bg-[#111] border border-white/5 rounded-lg p-6 cursor-pointer overflow-hidden transition-all duration-350 hover:-translate-y-1.5 hover:scale-[1.02]"
+                  className="group relative bg-[#111] border border-white/5 rounded-lg p-6 cursor-pointer overflow-hidden transition-all hover:-translate-y-1.5 hover:scale-[1.02]"
                   style={{ transitionDuration: "350ms" }}
+                  onClick={() => scrollTo("#contacts")}
                 >
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
@@ -476,7 +660,7 @@ const Index = () => {
                       <Icon name={service.icon} size={22} style={{ color: service.color }} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
                         <h3 className="font-oswald text-lg font-semibold text-white group-hover:text-[#FFE600] transition-colors duration-300">
                           {service.title}
                         </h3>
@@ -504,6 +688,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* CALCULATOR */}
+      <Calculator />
+
       {/* CTA BANNER */}
       <section className="relative overflow-hidden py-20 my-4">
         <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #1a0a00 0%, #0d0d0d 40%, #001a1a 100%)" }} />
@@ -519,7 +706,7 @@ const Index = () => {
               Хочешь увидеть, как будет<br />
               <span style={{ color: "#FFE600", textShadow: "0 0 10px #FFE600, 0 0 30px #FF6B00" }}>выглядеть твоя вывеска?</span>
             </h2>
-            <p className="text-white/45 mt-3 font-rubik">Попробуй наш 3D-конструктор — введи текст и выбери стиль</p>
+            <p className="text-white/45 mt-3 font-rubik">Попробуй наш 3D-конструктор — введи текст, выбери стиль и цвет</p>
           </div>
           <button
             onClick={() => setPreviewOpen(true)}
@@ -604,13 +791,21 @@ const Index = () => {
                   <span style={{ color: "#FFE600", textShadow: "0 0 10px #FFE600, 0 0 30px #FF6B00" }}>РЕКЛАМУ</span><br />
                   ЗАМЕТНОЙ
                 </h2>
-                <p className="text-white/55 leading-relaxed mb-6 font-rubik">
-                  НЕОНАРТ — производственная компания с собственным цехом в Москве. Мы работаем с 2012 года
-                  и за это время реализовали более 850 проектов для кафе, магазинов, офисов и торговых центров.
+
+                <p className="text-white/70 leading-relaxed mb-4 font-rubik text-base">
+                  Вас приветствует команда <span className="text-[#FFE600] font-semibold">Визуал ПРО!</span> Мы готовы гарантировать:
+                </p>
+                <ul className="text-white/60 mb-6 font-rubik space-y-1">
+                  <li className="flex items-center gap-2"><span style={{ color: "#FFE600" }}>✦</span> Лояльные цены</li>
+                  <li className="flex items-center gap-2"><span style={{ color: "#FFE600" }}>✦</span> Индивидуальный подход</li>
+                  <li className="flex items-center gap-2"><span style={{ color: "#FFE600" }}>✦</span> Высокое качество</li>
+                  <li className="flex items-center gap-2"><span style={{ color: "#FFE600" }}>✦</span> Соблюдение сроков</li>
+                </ul>
+                <p className="text-white/65 leading-relaxed mb-4 font-rubik">
+                  Если Вам нужна ✨<span className="text-[#FFE600] font-semibold">ЯРКАЯ</span>✨ наружная реклама — мы будем рады видеть Вас в числе наших клиентов!
                 </p>
                 <p className="text-white/55 leading-relaxed mb-10 font-rubik">
-                  Полный цикл: от разработки дизайна и согласования до изготовления и монтажа.
-                  Выезжаем на замер бесплатно, работаем по всей Москве и МО.
+                  Лучшие материалы, качественная сборка, эксклюзивный дизайн.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -641,10 +836,7 @@ const Index = () => {
                     key={s.label}
                     className="bg-[#111] border border-white/5 rounded-lg p-6 text-center group hover:border-[#FFE600]/25 transition-all duration-300"
                   >
-                    <div
-                      className="font-oswald text-4xl font-bold mb-2"
-                      style={{ color: ["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i] }}
-                    >
+                    <div className="font-oswald text-4xl font-bold mb-2" style={{ color: ["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i] }}>
                       {s.value}
                     </div>
                     <div className="text-white/35 text-sm">{s.label}</div>
@@ -670,8 +862,8 @@ const Index = () => {
             <div className="text-center mb-16">
               <span className="font-oswald text-sm tracking-widest uppercase mb-3 block" style={{ color: "#FFE600" }}>Связаться с нами</span>
               <h2 className="font-oswald font-bold text-white" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-                ПОЛУЧИТЬ<br />
-                <span style={{ color: "#FFE600", textShadow: "0 0 10px #FFE600, 0 0 30px #FF6B00" }}>РАСЧЁТ</span>
+                НАЧНЁМ<br />
+                <span style={{ color: "#FFE600", textShadow: "0 0 10px #FFE600, 0 0 30px #FF6B00" }}>РАБОТАТЬ</span>
               </h2>
               <p className="text-white/35 mt-4 font-rubik">Оставьте заявку — перезвоним в течение 15 минут в рабочее время</p>
             </div>
@@ -718,9 +910,9 @@ const Index = () => {
             <RevealSection>
               <div className="space-y-4">
                 {[
-                  { icon: "Phone", label: "Телефон", value: "+7 (495) 000-00-00", color: "#FFE600" },
-                  { icon: "Mail", label: "Email", value: "info@neonart.ru", color: "#00F5FF" },
-                  { icon: "MapPin", label: "Адрес", value: "Москва, ул. Производственная, 10", color: "#FF6B00" },
+                  { icon: "Phone", label: "Телефон", value: "+7 (921) 618-98-86", color: "#FFE600" },
+                  { icon: "Mail", label: "Email", value: "vizualpro39@mail.ru", color: "#00F5FF" },
+                  { icon: "MapPin", label: "Адрес", value: "г. Калининград, Киевский переулок, д. 1А", color: "#FF6B00" },
                   { icon: "Clock", label: "Режим работы", value: "Пн–Пт: 9:00–19:00, Сб: 10:00–16:00", color: "#FF2D55" },
                 ].map(item => (
                   <div
@@ -734,7 +926,7 @@ const Index = () => {
                       <Icon name={item.icon} size={18} style={{ color: item.color }} />
                     </div>
                     <div>
-                      <div className="text-white/28 text-xs font-oswald tracking-wider uppercase mb-1">{item.label}</div>
+                      <div className="text-white/30 text-xs font-oswald tracking-wider uppercase mb-1">{item.label}</div>
                       <div className="text-white font-rubik">{item.value}</div>
                     </div>
                   </div>
@@ -748,9 +940,9 @@ const Index = () => {
       {/* FOOTER */}
       <footer className="border-t border-white/5 py-10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="font-oswald text-xl font-bold tracking-wider" style={{ color: "#FFE600" }}>НЕОНАРТ</span>
-          <span className="text-white/18 text-sm">© 2024 НЕОНАРТ. Производство наружной рекламы в Москве.</span>
-          <div className="flex gap-6">
+          <span className="font-oswald text-xl font-bold tracking-wider" style={{ color: "#FFE600" }}>ВИЗУАЛ ПРО</span>
+          <span className="text-white/18 text-sm">© 2024 Визуал ПРО. Производство наружной рекламы в Калининграде.</span>
+          <div className="flex gap-6 flex-wrap justify-center">
             {NAV_LINKS.map(link => (
               <button
                 key={link.href}
@@ -764,7 +956,7 @@ const Index = () => {
         </div>
       </footer>
 
-      <PreviewModal open={previewOpen} onClose={() => setPreviewOpen(false)} />
+      <PreviewModal open={previewOpen} onClose={() => setPreviewOpen(false)} onOrder={scrollToContacts} />
     </div>
   );
 };
