@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_IMAGE = "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/files/7b919976-8328-4a3a-9faf-554f2dfe9a1c.jpg";
+const HERO_IMAGE = "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/files/3db3a9fc-9243-44d2-9a70-635eb410ddee.jpg";
 
 const NAV_LINKS = [
   { label: "Главная", href: "#hero" },
@@ -13,69 +13,15 @@ const NAV_LINKS = [
 ];
 
 const SERVICES = [
-  {
-    icon: "Type",
-    title: "Объёмные буквы",
-    desc: "Буквы из акрила, металла, пластика с внутренней или контражурной подсветкой. Эффектно смотрятся круглосуточно.",
-    color: "#FFE600",
-    tag: "ХИТ",
-  },
-  {
-    icon: "AlignLeft",
-    title: "Плоские буквы",
-    desc: "Вырезанные буквы из металла, акрила или ПВХ. Лаконично, стильно, доступно.",
-    color: "#FF6B00",
-    tag: null,
-  },
-  {
-    icon: "Image",
-    title: "Баннер",
-    desc: "Широкоформатная печать на баннерной ткани. Быстро, ярко, любой размер.",
-    color: "#00F5FF",
-    tag: null,
-  },
-  {
-    icon: "Square",
-    title: "Световые короба",
-    desc: "Лайтбоксы с равномерной подсветкой. Видны днём и ночью, защищены от непогоды.",
-    color: "#FF2D55",
-    tag: null,
-  },
-  {
-    icon: "PanelTop",
-    title: "Штендер",
-    desc: "Мобильная выносная конструкция. Ставится у входа, привлекает прохожих.",
-    color: "#FFE600",
-    tag: null,
-  },
-  {
-    icon: "MapPin",
-    title: "Адресные таблички",
-    desc: "Информационные таблички любой сложности: металл, акрил, гравировка.",
-    color: "#FF6B00",
-    tag: null,
-  },
-  {
-    icon: "Zap",
-    title: "Гибкий неон",
-    desc: "Светящиеся вывески и арт-объекты из LED-неона. Нет ничего атмосфернее.",
-    color: "#00F5FF",
-    tag: "🔥 ТРЕНД",
-  },
-  {
-    icon: "Palette",
-    title: "Услуги дизайнера",
-    desc: "Разработка макета с нуля, адаптация логотипа, визуализация на фасаде.",
-    color: "#FF2D55",
-    tag: null,
-  },
-  {
-    icon: "Box",
-    title: "3D-печать и печать по фото",
-    desc: "Сложные формы и детали на 3D-принтере, фотопечать высокого разрешения на любых носителях. Прототипы и готовые изделия.",
-    color: "#FFE600",
-    tag: "НОВИНКА",
-  },
+  { icon: "Type", title: "Объёмные буквы", desc: "Буквы из акрила, металла, пластика с внутренней или контражурной подсветкой. Эффектно смотрятся круглосуточно.", color: "#FFE600", tag: "ХИТ" },
+  { icon: "AlignLeft", title: "Плоские буквы", desc: "Вырезанные буквы из металла, акрила или ПВХ. Лаконично, стильно, доступно.", color: "#FF6B00", tag: null },
+  { icon: "Image", title: "Баннер", desc: "Широкоформатная печать на баннерной ткани. Быстро, ярко, любой размер.", color: "#00F5FF", tag: null },
+  { icon: "Square", title: "Световые короба", desc: "Лайтбоксы с равномерной подсветкой. Видны днём и ночью, защищены от непогоды.", color: "#FF2D55", tag: null },
+  { icon: "PanelTop", title: "Штендер", desc: "Мобильная выносная конструкция. Ставится у входа, привлекает прохожих.", color: "#FFE600", tag: null },
+  { icon: "MapPin", title: "Адресные таблички", desc: "Информационные таблички любой сложности: металл, акрил, гравировка.", color: "#FF6B00", tag: null },
+  { icon: "Zap", title: "Гибкий неон", desc: "Светящиеся вывески и арт-объекты из LED-неона. Нет ничего атмосфернее.", color: "#00F5FF", tag: "🔥 ТРЕНД" },
+  { icon: "Palette", title: "Услуги дизайнера", desc: "Разработка макета с нуля, адаптация логотипа, визуализация на фасаде.", color: "#FF2D55", tag: null },
+  { icon: "Box", title: "3D-печать и печать по фото", desc: "Сложные формы и детали на 3D-принтере, фотопечать высокого разрешения на любых носителях.", color: "#FFE600", tag: "НОВИНКА" },
 ];
 
 const PORTFOLIO = [
@@ -99,19 +45,142 @@ const MARQUEE_ITEMS = [
   "ШТЕНДЕРЫ", "ТАБЛИЧКИ", "ДИЗАЙН", "ПЛОСКИЕ БУКВЫ", "ВЫВЕСКИ",
 ];
 
-const CALC_ITEMS = [
-  { label: "Изготовление баннеров", price: 1300, unit: "м²", icon: "Image" },
-  { label: "Информационный стенд", price: 2000, unit: "шт", icon: "PanelTop" },
-  { label: "Изготовление вывески", price: 3000, unit: "шт", icon: "Store" },
-  { label: "Объёмные буквы", price: 120, unit: "см²", icon: "Type" },
-  { label: "Плоские буквы", price: 60, unit: "см²", icon: "AlignLeft" },
-  { label: "Таблички", price: 600, unit: "шт", icon: "MapPin" },
-  { label: "Штендеры", price: 7500, unit: "шт", icon: "Triangle" },
-  { label: "Оклейка витрин", price: 2000, unit: "м²", icon: "Square" },
-  { label: "Монтаж наружной рекламы", price: 1500, unit: "шт", icon: "Wrench" },
+const NEON_COLORS = ["#00F5FF", "#FF2D55", "#FFE600", "#FF6B00", "#A855F7", "#22C55E", "#FFFFFF"];
+
+type CalcProduct = {
+  id: string; label: string; icon: string;
+  materials: { label: string; multiplier: number }[];
+  byArea: true; pricePerM2: number; pricePerUnit?: never;
+} | {
+  id: string; label: string; icon: string;
+  materials: { label: string; multiplier: number }[];
+  byArea: false; pricePerUnit: number; pricePerM2?: never;
+};
+
+// Калькулятор: типы продуктов
+const CALC_PRODUCTS: CalcProduct[] = [
+  {
+    id: "banner",
+    label: "Баннер",
+    icon: "Image",
+    pricePerM2: 1300,
+    byArea: true,
+    materials: [
+      { label: "Баннерная ткань 440 г/м²", multiplier: 1.0 },
+      { label: "Баннерная ткань 650 г/м² (усиленная)", multiplier: 1.4 },
+      { label: "Сетка (ветропродуваемая)", multiplier: 1.2 },
+      { label: "Пленка самоклеящаяся", multiplier: 1.5 },
+    ],
+  },
+  {
+    id: "objem",
+    label: "Объёмные буквы",
+    icon: "Type",
+    pricePerM2: 12000,
+    byArea: true,
+    materials: [
+      { label: "Акрил", multiplier: 1.0 },
+      { label: "Нержавеющая сталь", multiplier: 1.8 },
+      { label: "Пластик ABS", multiplier: 0.85 },
+      { label: "Композит", multiplier: 1.3 },
+    ],
+  },
+  {
+    id: "flat",
+    label: "Плоские буквы",
+    icon: "AlignLeft",
+    pricePerM2: 6000,
+    byArea: true,
+    materials: [
+      { label: "ПВХ 10 мм", multiplier: 1.0 },
+      { label: "Акрил", multiplier: 1.2 },
+      { label: "Нержавейка", multiplier: 1.7 },
+      { label: "Оцинкованная сталь", multiplier: 1.4 },
+    ],
+  },
+  {
+    id: "lightbox",
+    label: "Световой короб",
+    icon: "Square",
+    pricePerM2: 8500,
+    byArea: true,
+    materials: [
+      { label: "Акрил + алюминиевый профиль", multiplier: 1.0 },
+      { label: "Композит + акрил", multiplier: 1.2 },
+      { label: "Нержавейка + акрил", multiplier: 1.6 },
+    ],
+  },
+  {
+    id: "stend",
+    label: "Информ. стенд",
+    icon: "PanelTop",
+    pricePerUnit: 2000,
+    byArea: false,
+    materials: [
+      { label: "ПВХ + алюминиевая рамка", multiplier: 1.0 },
+      { label: "Акрил + нержавейка", multiplier: 1.5 },
+      { label: "Дерево + печать", multiplier: 1.3 },
+    ],
+  },
+  {
+    id: "sign",
+    label: "Вывеска",
+    icon: "Store",
+    pricePerUnit: 3000,
+    byArea: false,
+    materials: [
+      { label: "Стандарт (ПВХ)", multiplier: 1.0 },
+      { label: "Акрил", multiplier: 1.4 },
+      { label: "Нержавейка", multiplier: 2.0 },
+      { label: "Дерево", multiplier: 1.6 },
+    ],
+  },
+  {
+    id: "tabliczka",
+    label: "Табличка",
+    icon: "MapPin",
+    pricePerUnit: 600,
+    byArea: false,
+    materials: [
+      { label: "ПВХ с печатью", multiplier: 1.0 },
+      { label: "Акрил с УФ-печатью", multiplier: 1.5 },
+      { label: "Металл гравировка", multiplier: 2.2 },
+      { label: "Пластик с объёмными буквами", multiplier: 1.8 },
+    ],
+  },
+  {
+    id: "shtender",
+    label: "Штендер",
+    icon: "Triangle",
+    pricePerUnit: 7500,
+    byArea: false,
+    materials: [
+      { label: "Металл + баннер", multiplier: 1.0 },
+      { label: "Металл + акрил", multiplier: 1.4 },
+      { label: "Деревянный", multiplier: 1.2 },
+    ],
+  },
+  {
+    id: "okleika",
+    label: "Оклейка витрин",
+    icon: "Layers",
+    pricePerM2: 2000,
+    byArea: true,
+    materials: [
+      { label: "Матовая плёнка", multiplier: 1.0 },
+      { label: "Зеркальная плёнка", multiplier: 1.3 },
+      { label: "Цветная плёнка", multiplier: 1.1 },
+      { label: "Перфорированная (для витрин)", multiplier: 1.5 },
+    ],
+  },
 ];
 
-const NEON_COLORS = ["#00F5FF", "#FF2D55", "#FFE600", "#FF6B00", "#A855F7", "#22C55E", "#FFFFFF"];
+const EXTRA_OPTIONS = [
+  { id: "montage", label: "Монтаж", icon: "Wrench", price: 3500 },
+  { id: "delivery", label: "Доставка", icon: "Truck", price: 500 },
+  { id: "design", label: "Услуги дизайнера", icon: "Palette", price: 3000 },
+  { id: "led", label: "Подсветка LED", icon: "Zap", price: 4000 },
+];
 
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -149,11 +218,6 @@ function PreviewModal({ open, onClose, onOrder }: { open: boolean; onClose: () =
 
   if (!open) return null;
 
-  const handleOrder = () => {
-    onClose();
-    onOrder();
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
@@ -176,16 +240,13 @@ function PreviewModal({ open, onClose, onOrder }: { open: boolean; onClose: () =
           placeholder="ВАША ВЫВЕСКА"
         />
 
-        {/* Style tabs */}
         <div className="flex gap-3 mb-5">
           {(["neon", "3d", "banner"] as const).map(s => (
             <button
               key={s}
               onClick={() => setStyle(s)}
               className={`flex-1 py-2 rounded border font-oswald text-sm uppercase tracking-wider transition-all ${
-                style === s
-                  ? "bg-[#FFE600] text-[#0A0A0A] border-[#FFE600] font-bold"
-                  : "bg-transparent text-white/60 border-white/20 hover:border-white/40"
+                style === s ? "bg-[#FFE600] text-[#0A0A0A] border-[#FFE600] font-bold" : "bg-transparent text-white/60 border-white/20 hover:border-white/40"
               }`}
             >
               {s === "neon" ? "Неон" : s === "3d" ? "3D буквы" : "Баннер"}
@@ -193,7 +254,6 @@ function PreviewModal({ open, onClose, onOrder }: { open: boolean; onClose: () =
           ))}
         </div>
 
-        {/* Color palette (only for neon and 3d) */}
         {(style === "neon" || style === "3d") && (
           <div className="mb-5">
             <p className="text-white/40 text-xs font-oswald tracking-wider uppercase mb-2">Цвет текста</p>
@@ -203,76 +263,39 @@ function PreviewModal({ open, onClose, onOrder }: { open: boolean; onClose: () =
                   key={c}
                   onClick={() => setNeonColor(c)}
                   className="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110"
-                  style={{
-                    background: c,
-                    borderColor: neonColor === c ? "#fff" : "transparent",
-                    boxShadow: neonColor === c ? `0 0 8px ${c}` : "none",
-                  }}
+                  style={{ background: c, borderColor: neonColor === c ? "#fff" : "transparent", boxShadow: neonColor === c ? `0 0 8px ${c}` : "none" }}
                 />
               ))}
             </div>
           </div>
         )}
 
-        {/* Font size slider */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <p className="text-white/40 text-xs font-oswald tracking-wider uppercase">Размер текста</p>
             <span className="text-[#FFE600] text-xs font-oswald">{fontSize}px</span>
           </div>
-          <input
-            type="range"
-            min={20}
-            max={72}
-            value={fontSize}
-            onChange={e => setFontSize(Number(e.target.value))}
-            className="w-full accent-[#FFE600] h-1 cursor-pointer"
-          />
+          <input type="range" min={20} max={72} value={fontSize} onChange={e => setFontSize(Number(e.target.value))} className="w-full accent-[#FFE600] h-1 cursor-pointer" />
         </div>
 
-        {/* Preview canvas */}
         <div
           className="relative rounded-lg overflow-hidden flex items-center justify-center"
-          style={{
-            height: "200px",
-            backgroundImage: "url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=60')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          style={{ height: "200px", backgroundImage: "url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=60')", backgroundSize: "cover", backgroundPosition: "center" }}
         >
           <div className="absolute inset-0 bg-black/55" />
           {style === "neon" && (
-            <span
-              className="relative font-oswald font-bold tracking-widest px-4 text-center"
-              style={{
-                color: neonColor,
-                fontSize: `${fontSize}px`,
-                textShadow: `0 0 10px ${neonColor}, 0 0 30px ${neonColor}, 0 0 70px ${neonColor}`,
-                lineHeight: 1.2,
-              }}
-            >
+            <span className="relative font-oswald font-bold tracking-widest px-4 text-center" style={{ color: neonColor, fontSize: `${fontSize}px`, textShadow: `0 0 10px ${neonColor}, 0 0 30px ${neonColor}, 0 0 70px ${neonColor}`, lineHeight: 1.2 }}>
               {text || "ВАША ВЫВЕСКА"}
             </span>
           )}
           {style === "3d" && (
-            <span
-              className="relative font-oswald font-bold tracking-widest px-4 text-center"
-              style={{
-                color: neonColor,
-                fontSize: `${fontSize}px`,
-                textShadow: `3px 3px 0 rgba(0,0,0,0.8), 6px 6px 0 rgba(0,0,0,0.5), 0 0 25px ${neonColor}60`,
-                lineHeight: 1.2,
-              }}
-            >
+            <span className="relative font-oswald font-bold tracking-widest px-4 text-center" style={{ color: neonColor, fontSize: `${fontSize}px`, textShadow: `3px 3px 0 rgba(0,0,0,0.8), 6px 6px 0 rgba(0,0,0,0.5), 0 0 25px ${neonColor}60`, lineHeight: 1.2 }}>
               {text || "ВАША ВЫВЕСКА"}
             </span>
           )}
           {style === "banner" && (
             <div className="relative px-8 py-4 rounded" style={{ background: "rgba(255,107,0,0.92)", border: "3px solid #FFE600" }}>
-              <span
-                className="font-oswald font-bold tracking-wider text-white block text-center"
-                style={{ fontSize: `${Math.min(fontSize, 48)}px` }}
-              >
+              <span className="font-oswald font-bold tracking-wider text-white block text-center" style={{ fontSize: `${Math.min(fontSize, 48)}px` }}>
                 {text || "ВАША ВЫВЕСКА"}
               </span>
             </div>
@@ -282,7 +305,7 @@ function PreviewModal({ open, onClose, onOrder }: { open: boolean; onClose: () =
         <button
           className="mt-6 w-full py-4 rounded font-oswald text-lg font-bold tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5"
           style={{ background: "#FFE600", color: "#0A0A0A", boxShadow: "0 0 15px #FFE600, 0 0 40px rgba(255,107,0,0.5)" }}
-          onClick={handleOrder}
+          onClick={() => { onClose(); onOrder(); }}
         >
           Заказать этот вариант →
         </button>
@@ -291,16 +314,41 @@ function PreviewModal({ open, onClose, onOrder }: { open: boolean; onClose: () =
   );
 }
 
+interface CalcLine {
+  productId: string;
+  materialIdx: number;
+  width: number;
+  height: number;
+  qty: number;
+}
+
 function Calculator() {
-  const [quantities, setQuantities] = useState<Record<string, number>>(
-    Object.fromEntries(CALC_ITEMS.map(i => [i.label, 0]))
-  );
+  const emptyLine = (): CalcLine => ({ productId: CALC_PRODUCTS[0].id, materialIdx: 0, width: 1, height: 1, qty: 1 });
+  const [lines, setLines] = useState<CalcLine[]>([emptyLine()]);
+  const [extras, setExtras] = useState<Record<string, boolean>>({});
 
-  const total = CALC_ITEMS.reduce((sum, item) => sum + item.price * (quantities[item.label] || 0), 0);
-
-  const setQty = (label: string, val: number) => {
-    setQuantities(prev => ({ ...prev, [label]: Math.max(0, val) }));
+  const updateLine = (idx: number, patch: Partial<CalcLine>) => {
+    setLines(prev => prev.map((l, i) => i === idx ? { ...l, ...patch } : l));
   };
+
+  const addLine = () => setLines(prev => [...prev, emptyLine()]);
+  const removeLine = (idx: number) => setLines(prev => prev.filter((_, i) => i !== idx));
+
+  const lineTotal = (line: CalcLine): number => {
+    const product = CALC_PRODUCTS.find(p => p.id === line.productId);
+    if (!product) return 0;
+    const mat = product.materials[line.materialIdx] ?? product.materials[0];
+    if (product.byArea) {
+      const area = line.width * line.height;
+      return Math.round(product.pricePerM2 * area * mat.multiplier * line.qty);
+    } else {
+      return Math.round(product.pricePerUnit * mat.multiplier * line.qty);
+    }
+  };
+
+  const productsTotal = lines.reduce((s, l) => s + lineTotal(l), 0);
+  const extrasTotal = EXTRA_OPTIONS.filter(o => extras[o.id]).reduce((s, o) => s + o.price, 0);
+  const total = productsTotal + extrasTotal;
 
   return (
     <section id="calc" className="py-32 relative">
@@ -313,112 +361,252 @@ function Calculator() {
       />
       <div className="max-w-7xl mx-auto px-6 relative">
         <RevealSection>
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <span className="font-oswald text-sm tracking-widest uppercase mb-3 block" style={{ color: "#FF6B00" }}>
-                Прозрачные цены
-              </span>
-              <h2 className="font-oswald font-bold text-white leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-                КАЛЬКУЛЯТОР
-                <span
-                  className="ml-4"
-                  style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)", color: "transparent" }}
-                >
-                  СТОИМОСТИ
-                </span>
-              </h2>
-              <p className="text-white/40 mt-3 font-rubik text-sm">Укажите количество — узнайте примерную стоимость заказа</p>
-            </div>
+          <div className="mb-12">
+            <span className="font-oswald text-sm tracking-widest uppercase mb-3 block" style={{ color: "#FF6B00" }}>Прозрачные цены</span>
+            <h2 className="font-oswald font-bold text-white leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
+              КАЛЬКУЛЯТОР
+              <span className="ml-4" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)", color: "transparent" }}>СТОИМОСТИ</span>
+            </h2>
+            <p className="text-white/40 mt-3 font-rubik text-sm">Укажите тип изделия, материал, размер и количество — получите предварительную стоимость</p>
           </div>
         </RevealSection>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-3">
-            {CALC_ITEMS.map(item => (
-              <RevealSection key={item.label}>
-                <div className="group flex items-center justify-between bg-[#111] border border-white/5 rounded-lg px-5 py-4 hover:border-[#FF6B00]/30 transition-all duration-300">
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div
-                      className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0"
-                      style={{ background: "rgba(255,107,0,0.1)", border: "1px solid rgba(255,107,0,0.2)" }}
-                    >
-                      <Icon name={item.icon} size={18} style={{ color: "#FF6B00" }} />
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+          {/* LEFT: lines */}
+          <div className="xl:col-span-2 space-y-4">
+            {lines.map((line, idx) => {
+              const product = CALC_PRODUCTS.find(p => p.id === line.productId)!;
+              return (
+                <RevealSection key={idx}>
+                  <div className="bg-[#111] border border-white/5 rounded-xl p-5 hover:border-[#FF6B00]/25 transition-all duration-300">
+                    {/* Header row */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="font-oswald text-[#FF6B00] text-sm uppercase tracking-wider">Позиция {idx + 1}</span>
+                      {lines.length > 1 && (
+                        <button onClick={() => removeLine(idx)} className="text-white/25 hover:text-red-400 transition-colors">
+                          <Icon name="Trash2" size={16} />
+                        </button>
+                      )}
                     </div>
-                    <div className="min-w-0">
-                      <p className="text-white font-rubik text-sm font-medium truncate">{item.label}</p>
-                      <p className="text-white/35 text-xs">от {item.price.toLocaleString("ru-RU")} ₽ / {item.unit}</p>
+
+                    {/* Product select */}
+                    <div className="mb-4">
+                      <label className="text-white/35 text-xs font-oswald tracking-wider uppercase block mb-1.5">Тип изделия</label>
+                      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                        {CALC_PRODUCTS.map(p => (
+                          <button
+                            key={p.id}
+                            onClick={() => updateLine(idx, { productId: p.id, materialIdx: 0 })}
+                            className="flex flex-col items-center gap-1 py-2 px-1 rounded-lg border text-center transition-all duration-200"
+                            style={{
+                              borderColor: line.productId === p.id ? "#FF6B00" : "rgba(255,255,255,0.08)",
+                              background: line.productId === p.id ? "rgba(255,107,0,0.12)" : "transparent",
+                            }}
+                          >
+                            <Icon name={p.icon} size={16} style={{ color: line.productId === p.id ? "#FF6B00" : "rgba(255,255,255,0.4)" }} />
+                            <span className="text-[10px] font-rubik leading-tight" style={{ color: line.productId === p.id ? "#FF6B00" : "rgba(255,255,255,0.4)" }}>
+                              {p.label}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Material select */}
+                    <div className="mb-4">
+                      <label className="text-white/35 text-xs font-oswald tracking-wider uppercase block mb-1.5">Материал</label>
+                      <div className="flex flex-wrap gap-2">
+                        {product.materials.map((mat, mi) => (
+                          <button
+                            key={mi}
+                            onClick={() => updateLine(idx, { materialIdx: mi })}
+                            className="px-3 py-1.5 rounded border text-xs font-rubik transition-all duration-200"
+                            style={{
+                              borderColor: line.materialIdx === mi ? "#FFE600" : "rgba(255,255,255,0.1)",
+                              background: line.materialIdx === mi ? "rgba(255,230,0,0.12)" : "transparent",
+                              color: line.materialIdx === mi ? "#FFE600" : "rgba(255,255,255,0.5)",
+                            }}
+                          >
+                            {mat.label}
+                            {mat.multiplier !== 1.0 && (
+                              <span className="ml-1 opacity-60">×{mat.multiplier}</span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Dimensions + qty */}
+                    <div className="flex flex-wrap items-end gap-4">
+                      {product.byArea ? (
+                        <>
+                          <div className="flex-1 min-w-[100px]">
+                            <label className="text-white/35 text-xs font-oswald tracking-wider uppercase block mb-1.5">Ширина (м)</label>
+                            <input
+                              type="number"
+                              min={0.1}
+                              step={0.1}
+                              value={line.width}
+                              onChange={e => updateLine(idx, { width: Math.max(0.1, Number(e.target.value)) })}
+                              className="w-full bg-[#1a1a1a] border border-white/10 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-[#FF6B00]/50 transition-colors"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-[100px]">
+                            <label className="text-white/35 text-xs font-oswald tracking-wider uppercase block mb-1.5">Высота (м)</label>
+                            <input
+                              type="number"
+                              min={0.1}
+                              step={0.1}
+                              value={line.height}
+                              onChange={e => updateLine(idx, { height: Math.max(0.1, Number(e.target.value)) })}
+                              className="w-full bg-[#1a1a1a] border border-white/10 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-[#FF6B00]/50 transition-colors"
+                            />
+                          </div>
+                          <div className="text-white/30 text-xs text-center pb-2">
+                            <span className="block font-oswald text-lg text-white/50">{(line.width * line.height).toFixed(2)}</span>
+                            м²
+                          </div>
+                        </>
+                      ) : null}
+                      <div className="flex-1 min-w-[100px]">
+                        <label className="text-white/35 text-xs font-oswald tracking-wider uppercase block mb-1.5">Количество (шт)</label>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => updateLine(idx, { qty: Math.max(1, line.qty - 1) })}
+                            className="w-8 h-9 rounded border border-white/10 flex items-center justify-center text-white/60 hover:border-[#FF6B00]/50 hover:text-[#FF6B00] transition-all flex-shrink-0"
+                          >
+                            <Icon name="Minus" size={13} />
+                          </button>
+                          <input
+                            type="number"
+                            min={1}
+                            value={line.qty}
+                            onChange={e => updateLine(idx, { qty: Math.max(1, Number(e.target.value)) })}
+                            className="w-14 text-center bg-[#1a1a1a] border border-white/10 rounded px-2 py-2 text-white text-sm focus:outline-none focus:border-[#FF6B00]/50"
+                          />
+                          <button
+                            onClick={() => updateLine(idx, { qty: line.qty + 1 })}
+                            className="w-8 h-9 rounded border border-white/10 flex items-center justify-center text-white/60 hover:border-[#FF6B00]/50 hover:text-[#FF6B00] transition-all flex-shrink-0"
+                          >
+                            <Icon name="Plus" size={13} />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="pb-1">
+                        <div className="text-white/30 text-xs font-oswald uppercase mb-1">Сумма</div>
+                        <div className="font-oswald text-xl font-bold" style={{ color: "#FF6B00" }}>
+                          {lineTotal(line).toLocaleString("ru-RU")} ₽
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 ml-4 flex-shrink-0">
+                </RevealSection>
+              );
+            })}
+
+            {/* Add line */}
+            <button
+              onClick={addLine}
+              className="w-full py-3 rounded-xl border border-dashed border-white/15 text-white/35 hover:border-[#FF6B00]/40 hover:text-[#FF6B00] transition-all duration-300 font-oswald text-sm tracking-wider uppercase flex items-center justify-center gap-2"
+            >
+              <Icon name="Plus" size={16} />
+              Добавить позицию
+            </button>
+
+            {/* Extra options */}
+            <RevealSection>
+              <div className="bg-[#111] border border-white/5 rounded-xl p-5">
+                <h4 className="font-oswald text-white text-sm uppercase tracking-wider mb-4">Дополнительные услуги</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {EXTRA_OPTIONS.map(opt => (
                     <button
-                      onClick={() => setQty(item.label, (quantities[item.label] || 0) - 1)}
-                      className="w-8 h-8 rounded border border-white/10 flex items-center justify-center text-white/60 hover:border-[#FF6B00]/50 hover:text-[#FF6B00] transition-all"
+                      key={opt.id}
+                      onClick={() => setExtras(prev => ({ ...prev, [opt.id]: !prev[opt.id] }))}
+                      className="flex items-center justify-between px-4 py-3 rounded-lg border transition-all duration-200"
+                      style={{
+                        borderColor: extras[opt.id] ? "#FFE600" : "rgba(255,255,255,0.08)",
+                        background: extras[opt.id] ? "rgba(255,230,0,0.08)" : "transparent",
+                      }}
                     >
-                      <Icon name="Minus" size={14} />
-                    </button>
-                    <input
-                      type="number"
-                      min={0}
-                      value={quantities[item.label] || 0}
-                      onChange={e => setQty(item.label, Number(e.target.value))}
-                      className="w-14 text-center bg-[#1a1a1a] border border-white/10 rounded px-2 py-1 text-white text-sm focus:outline-none focus:border-[#FF6B00]/50"
-                    />
-                    <button
-                      onClick={() => setQty(item.label, (quantities[item.label] || 0) + 1)}
-                      className="w-8 h-8 rounded border border-white/10 flex items-center justify-center text-white/60 hover:border-[#FF6B00]/50 hover:text-[#FF6B00] transition-all"
-                    >
-                      <Icon name="Plus" size={14} />
-                    </button>
-                    <div className="w-28 text-right">
-                      <span className="font-oswald text-sm" style={{ color: quantities[item.label] ? "#FF6B00" : "rgba(255,255,255,0.2)" }}>
-                        {(item.price * (quantities[item.label] || 0)).toLocaleString("ru-RU")} ₽
+                      <div className="flex items-center gap-3">
+                        <div
+                          className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
+                          style={{ background: extras[opt.id] ? "rgba(255,230,0,0.15)" : "rgba(255,255,255,0.05)" }}
+                        >
+                          <Icon name={opt.icon} size={15} style={{ color: extras[opt.id] ? "#FFE600" : "rgba(255,255,255,0.4)" }} />
+                        </div>
+                        <span className="font-rubik text-sm" style={{ color: extras[opt.id] ? "#FFE600" : "rgba(255,255,255,0.6)" }}>
+                          {opt.label}
+                        </span>
+                      </div>
+                      <span className="font-oswald text-sm ml-3 whitespace-nowrap" style={{ color: extras[opt.id] ? "#FFE600" : "rgba(255,255,255,0.3)" }}>
+                        +{opt.price.toLocaleString("ru-RU")} ₽
                       </span>
-                    </div>
-                  </div>
+                    </button>
+                  ))}
                 </div>
-              </RevealSection>
-            ))}
+              </div>
+            </RevealSection>
           </div>
 
+          {/* RIGHT: summary */}
           <RevealSection>
             <div
-              className="sticky top-24 bg-[#111] border rounded-lg p-6"
+              className="sticky top-24 bg-[#111] border rounded-xl p-6"
               style={{ borderColor: total > 0 ? "rgba(255,107,0,0.4)" : "rgba(255,255,255,0.05)" }}
             >
-              <h3 className="font-oswald text-lg text-white uppercase tracking-wider mb-6">Итого</h3>
-              <div className="space-y-3 mb-6 max-h-60 overflow-y-auto pr-1">
-                {CALC_ITEMS.filter(i => quantities[i.label] > 0).map(item => (
-                  <div key={item.label} className="flex justify-between items-start gap-2 text-sm">
-                    <span className="text-white/50 font-rubik leading-tight">{item.label} × {quantities[item.label]}</span>
-                    <span className="text-white/80 font-oswald whitespace-nowrap">
-                      {(item.price * quantities[item.label]).toLocaleString("ru-RU")} ₽
-                    </span>
+              <h3 className="font-oswald text-lg text-white uppercase tracking-wider mb-6">Итоговый расчёт</h3>
+
+              <div className="space-y-2 mb-4 max-h-52 overflow-y-auto pr-1">
+                {lines.map((line, idx) => {
+                  const product = CALC_PRODUCTS.find(p => p.id === line.productId)!;
+                  const mat = product.materials[line.materialIdx];
+                  return (
+                    <div key={idx} className="text-xs text-white/50 font-rubik flex justify-between gap-2">
+                      <span className="truncate">
+                        {product.label}{product.byArea ? ` ${line.width}×${line.height}м` : ""} × {line.qty} шт — {mat?.label}
+                      </span>
+                      <span className="text-white/70 whitespace-nowrap">{lineTotal(line).toLocaleString("ru-RU")} ₽</span>
+                    </div>
+                  );
+                })}
+                {EXTRA_OPTIONS.filter(o => extras[o.id]).map(opt => (
+                  <div key={opt.id} className="text-xs text-white/50 font-rubik flex justify-between gap-2">
+                    <span>{opt.label}</span>
+                    <span className="text-[#FFE600]/70">+{opt.price.toLocaleString("ru-RU")} ₽</span>
                   </div>
                 ))}
-                {total === 0 && (
-                  <p className="text-white/25 text-sm text-center py-4">Добавьте позиции для расчёта</p>
-                )}
+                {total === 0 && <p className="text-white/25 text-sm text-center py-4">Добавьте позиции</p>}
               </div>
 
-              <div className="border-t border-white/10 pt-4 mb-6">
+              <div className="border-t border-white/8 pt-4 mb-6">
+                {extrasTotal > 0 && (
+                  <div className="flex justify-between text-sm mb-2">
+                    <span className="text-white/40 font-rubik">Изделия</span>
+                    <span className="text-white/60 font-oswald">{productsTotal.toLocaleString("ru-RU")} ₽</span>
+                  </div>
+                )}
+                {extrasTotal > 0 && (
+                  <div className="flex justify-between text-sm mb-3">
+                    <span className="text-white/40 font-rubik">Доп. услуги</span>
+                    <span className="text-[#FFE600]/70 font-oswald">+{extrasTotal.toLocaleString("ru-RU")} ₽</span>
+                  </div>
+                )}
                 <div className="flex justify-between items-center">
-                  <span className="text-white/50 font-rubik text-sm">Итоговая сумма</span>
-                  <span
-                    className="font-oswald text-2xl font-bold"
-                    style={{ color: total > 0 ? "#FF6B00" : "rgba(255,255,255,0.2)" }}
-                  >
+                  <span className="text-white/50 font-rubik text-sm">Итого</span>
+                  <span className="font-oswald text-2xl font-bold" style={{ color: total > 0 ? "#FF6B00" : "rgba(255,255,255,0.2)" }}>
                     {total.toLocaleString("ru-RU")} ₽
                   </span>
                 </div>
-                <p className="text-white/25 text-xs mt-1">* Финальная стоимость уточняется при заказе</p>
+                <p className="text-white/20 text-xs mt-2">* Финальная стоимость уточняется при заказе</p>
               </div>
 
               <button
                 onClick={() => document.querySelector("#contacts")?.scrollIntoView({ behavior: "smooth" })}
                 className="w-full py-4 rounded font-oswald font-bold tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5"
                 style={{
-                  background: total > 0 ? "#FF6B00" : "#222",
-                  color: total > 0 ? "#fff" : "rgba(255,255,255,0.3)",
+                  background: total > 0 ? "#FF6B00" : "#1a1a1a",
+                  color: total > 0 ? "#fff" : "rgba(255,255,255,0.25)",
                   boxShadow: total > 0 ? "0 0 15px rgba(255,107,0,0.5)" : "none",
                 }}
               >
@@ -426,8 +614,8 @@ function Calculator() {
               </button>
 
               <button
-                onClick={() => setQuantities(Object.fromEntries(CALC_ITEMS.map(i => [i.label, 0])))}
-                className="w-full mt-2 py-2 rounded font-oswald text-sm tracking-wider text-white/25 hover:text-white/50 transition-colors uppercase"
+                onClick={() => { setLines([emptyLine()]); setExtras({}); }}
+                className="w-full mt-2 py-2 rounded font-oswald text-xs tracking-wider text-white/20 hover:text-white/45 transition-colors uppercase"
               >
                 Очистить
               </button>
@@ -450,8 +638,6 @@ const Index = () => {
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollToContacts = () => scrollTo("#contacts");
-
   return (
     <div className="min-h-screen bg-[#0A0A0A] font-rubik overflow-x-hidden">
 
@@ -462,7 +648,7 @@ const Index = () => {
             ВИЗУАЛ ПРО
           </span>
 
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-5">
             {NAV_LINKS.map(link => (
               <button
                 key={link.href}
@@ -475,6 +661,19 @@ const Index = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
+            {/* Telegram icon */}
+            <a
+              href="https://t.me/vizualPRO_39"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-300 hover:scale-110"
+              style={{ background: "rgba(0,136,204,0.15)", border: "1px solid rgba(0,136,204,0.3)" }}
+              title="Telegram"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.9 14.41l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.916.175z"/>
+              </svg>
+            </a>
             <button
               onClick={() => setPreviewOpen(true)}
               className="border border-[#FFE600]/40 text-[#FFE600] px-4 py-2 rounded text-sm font-oswald tracking-wider uppercase hover:bg-[#FFE600]/10 transition-all"
@@ -506,6 +705,17 @@ const Index = () => {
                 {link.label}
               </button>
             ))}
+            <a
+              href="https://t.me/vizualPRO_39"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-4 py-2 rounded font-rubik text-[#0088cc] border border-[#0088cc]/30"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.9 14.41l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.916.175z"/>
+              </svg>
+              Telegram
+            </a>
             <button
               onClick={() => { setMenuOpen(false); setPreviewOpen(true); }}
               className="border border-[#FFE600]/40 text-[#FFE600] px-4 py-2 rounded font-oswald tracking-wider uppercase"
@@ -523,23 +733,27 @@ const Index = () => {
         )}
       </nav>
 
-      {/* HERO */}
-      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden" style={{ clipPath: "polygon(0 0, 100% 0, 100% 90%, 0 100%)" }}>
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${HERO_IMAGE}')` }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, #0A0A0A 40%, rgba(10,10,10,0.7) 70%, rgba(10,10,10,0.3) 100%)" }} />
+      {/* HERO — fullscreen */}
+      <section id="hero" className="relative w-full" style={{ height: "100vh", minHeight: "640px" }}>
+        <img
+          src={HERO_IMAGE}
+          alt="Визуал ПРО — производство наружной рекламы"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, rgba(10,10,10,0.92) 35%, rgba(10,10,10,0.65) 65%, rgba(10,10,10,0.35) 100%)" }} />
         <div
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-35"
           style={{
-            backgroundImage: "linear-gradient(rgba(255,230,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,230,0,0.04) 1px, transparent 1px)",
+            backgroundImage: "linear-gradient(rgba(255,107,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,0,0.05) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #0A0A0A)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #0A0A0A)" }} />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-36">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8" style={{ background: "rgba(255,230,0,0.1)", border: "1px solid rgba(255,230,0,0.25)" }}>
-            <span className="w-2 h-2 rounded-full bg-[#FFE600] animate-pulse inline-block" />
-            <span className="text-[#FFE600] text-sm font-oswald tracking-widest uppercase">Производство в Калининграде</span>
+        <div className="relative z-10 h-full flex flex-col justify-center max-w-7xl mx-auto px-6 pt-16">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 w-fit" style={{ background: "rgba(255,107,0,0.1)", border: "1px solid rgba(255,107,0,0.3)" }}>
+            <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-pulse inline-block" />
+            <span className="text-[#FF6B00] text-sm font-oswald tracking-widest uppercase">Производство в Калининграде</span>
           </div>
 
           <h1 className="font-oswald font-bold leading-none mb-6" style={{ fontSize: "clamp(3rem, 10vw, 8rem)" }}>
@@ -547,10 +761,7 @@ const Index = () => {
             <span className="block" style={{ color: "#FFE600", textShadow: "0 0 20px #FFE600, 0 0 50px #FFE600, 0 0 90px #FF6B00" }}>
               РЕКЛАМА
             </span>
-            <span
-              className="block"
-              style={{ WebkitTextStroke: "2px rgba(255,255,255,0.15)", color: "transparent", fontSize: "clamp(2rem, 7vw, 6rem)" }}
-            >
+            <span className="block" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.12)", color: "transparent", fontSize: "clamp(2rem, 7vw, 6rem)" }}>
               КОТОРУЮ ВИДЯТ
             </span>
           </h1>
@@ -560,7 +771,7 @@ const Index = () => {
             От макета до монтажа — под ключ, с гарантией.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <button
               onClick={() => scrollTo("#contacts")}
               className="px-8 py-4 rounded font-oswald text-lg font-bold tracking-widest uppercase transition-all duration-300 hover:-translate-y-1"
@@ -576,15 +787,25 @@ const Index = () => {
               <Icon name="Eye" size={20} />
               3D-превью вывески
             </button>
+            {/* Telegram floating in hero */}
+            <a
+              href="https://t.me/vizualPRO_39"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 border px-8 py-4 rounded font-oswald text-lg tracking-wider uppercase transition-all duration-300 hover:scale-105"
+              style={{ borderColor: "rgba(0,136,204,0.4)", color: "#0088cc", background: "rgba(0,136,204,0.08)" }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0088cc">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.9 14.41l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.916.175z"/>
+              </svg>
+              Telegram
+            </a>
           </div>
 
-          <div className="flex flex-wrap gap-8 mt-16">
+          <div className="flex flex-wrap gap-8">
             {STATS.map((s, i) => (
               <div key={s.label}>
-                <div
-                  className="font-oswald text-3xl md:text-4xl font-bold"
-                  style={{ color: ["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i], textShadow: `0 0 10px ${["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i]}` }}
-                >
+                <div className="font-oswald text-3xl md:text-4xl font-bold" style={{ color: ["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i], textShadow: `0 0 10px ${["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i]}` }}>
                   {s.value}
                 </div>
                 <div className="text-white/35 text-sm mt-1">{s.label}</div>
@@ -592,6 +813,20 @@ const Index = () => {
             ))}
           </div>
         </div>
+
+        {/* Fixed Telegram button bottom-right */}
+        <a
+          href="https://t.me/vizualPRO_39"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full font-oswald text-sm font-bold tracking-wider uppercase transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+          style={{ background: "#0088cc", color: "#fff", boxShadow: "0 0 20px rgba(0,136,204,0.5), 0 4px 20px rgba(0,0,0,0.4)" }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.9 14.41l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.916.175z"/>
+          </svg>
+          Написать
+        </a>
       </section>
 
       {/* MARQUEE */}
@@ -619,19 +854,13 @@ const Index = () => {
           <RevealSection>
             <div className="flex items-end justify-between mb-16">
               <div>
-                <span className="font-oswald text-sm tracking-widest uppercase mb-3 block" style={{ color: "#FFE600" }}>
-                  Что мы делаем
-                </span>
+                <span className="font-oswald text-sm tracking-widest uppercase mb-3 block" style={{ color: "#FFE600" }}>Что мы делаем</span>
                 <h2 className="font-oswald font-bold text-white leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
                   НАШИ
-                  <span className="ml-4" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)", color: "transparent" }}>
-                    УСЛУГИ
-                  </span>
+                  <span className="ml-4" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)", color: "transparent" }}>УСЛУГИ</span>
                 </h2>
               </div>
-              <span className="hidden md:block text-white/10 font-oswald font-bold leading-none select-none" style={{ fontSize: "8rem" }}>
-                09
-              </span>
+              <span className="hidden md:block text-white/10 font-oswald font-bold leading-none select-none" style={{ fontSize: "8rem" }}>09</span>
             </div>
           </RevealSection>
 
@@ -643,32 +872,18 @@ const Index = () => {
                   style={{ transitionDuration: "350ms" }}
                   onClick={() => scrollTo("#contacts")}
                 >
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
-                    style={{ background: `radial-gradient(circle at 50% 0%, ${service.color}12 0%, transparent 70%)` }}
-                  />
-                  <div
-                    className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: `linear-gradient(90deg, transparent, ${service.color}, transparent)` }}
-                  />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" style={{ background: `radial-gradient(circle at 50% 0%, ${service.color}12 0%, transparent 70%)` }} />
+                  <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `linear-gradient(90deg, transparent, ${service.color}, transparent)` }} />
 
                   <div className="relative flex items-start gap-4">
-                    <div
-                      className="w-12 h-12 rounded flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                      style={{ background: `${service.color}15`, border: `1px solid ${service.color}30` }}
-                    >
+                    <div className="w-12 h-12 rounded flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110" style={{ background: `${service.color}15`, border: `1px solid ${service.color}30` }}>
                       <Icon name={service.icon} size={22} style={{ color: service.color }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2 flex-wrap">
-                        <h3 className="font-oswald text-lg font-semibold text-white group-hover:text-[#FFE600] transition-colors duration-300">
-                          {service.title}
-                        </h3>
+                        <h3 className="font-oswald text-lg font-semibold text-white group-hover:text-[#FFE600] transition-colors duration-300">{service.title}</h3>
                         {service.tag && (
-                          <span
-                            className="text-xs font-oswald font-bold px-2 py-0.5 rounded-full"
-                            style={{ background: `${service.color}18`, color: service.color, border: `1px solid ${service.color}35` }}
-                          >
+                          <span className="text-xs font-oswald font-bold px-2 py-0.5 rounded-full" style={{ background: `${service.color}18`, color: service.color, border: `1px solid ${service.color}35` }}>
                             {service.tag}
                           </span>
                         )}
@@ -694,10 +909,7 @@ const Index = () => {
       {/* CTA BANNER */}
       <section className="relative overflow-hidden py-20 my-4">
         <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #1a0a00 0%, #0d0d0d 40%, #001a1a 100%)" }} />
-        <div
-          className="absolute inset-0 opacity-25"
-          style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,230,0,0.04) 30px, rgba(255,230,0,0.04) 60px)" }}
-        />
+        <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,230,0,0.04) 30px, rgba(255,230,0,0.04) 60px)" }} />
         <div className="absolute left-0 top-0 bottom-0 w-1 animate-glow-border" style={{ background: "#FFE600", boxShadow: "0 0 8px #FFE600, 0 0 20px #FF6B00" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -725,9 +937,7 @@ const Index = () => {
           <RevealSection>
             <div className="mb-16">
               <span className="font-oswald text-sm tracking-widest uppercase mb-3 block" style={{ color: "#FF6B00" }}>Наши работы</span>
-              <h2 className="font-oswald font-bold text-white leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-                ПОРТФОЛИО
-              </h2>
+              <h2 className="font-oswald font-bold text-white leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>ПОРТФОЛИО</h2>
             </div>
           </RevealSection>
 
@@ -740,26 +950,14 @@ const Index = () => {
                   onMouseEnter={() => setActivePortfolio(i)}
                   onMouseLeave={() => setActivePortfolio(null)}
                 >
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.2) 50%, transparent 100%)" }} />
-                  <div
-                    className="absolute inset-0 transition-opacity duration-300"
-                    style={{ background: "linear-gradient(to top, rgba(255,230,0,0.15), transparent)", opacity: activePortfolio === i ? 1 : 0 }}
-                  />
-
+                  <div className="absolute inset-0 transition-opacity duration-300" style={{ background: "linear-gradient(to top, rgba(255,230,0,0.15), transparent)", opacity: activePortfolio === i ? 1 : 0 }} />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="text-xs font-oswald tracking-widest uppercase mb-1" style={{ color: "#FFE600" }}>{item.type}</div>
                     <h3 className="font-oswald text-xl font-bold text-white">{item.title}</h3>
                   </div>
-
-                  <div
-                    className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
-                    style={{ background: "#FFE600" }}
-                  >
+                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0" style={{ background: "#FFE600" }}>
                     <Icon name="ArrowUpRight" size={18} className="text-[#0A0A0A]" />
                   </div>
                 </div>
@@ -777,10 +975,7 @@ const Index = () => {
 
       {/* ABOUT */}
       <section id="about" className="py-32 relative overflow-hidden">
-        <div
-          className="absolute right-0 top-0 w-1/2 h-full pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at right, rgba(255,230,0,0.06), transparent 70%)" }}
-        />
+        <div className="absolute right-0 top-0 w-1/2 h-full pointer-events-none" style={{ background: "radial-gradient(ellipse at right, rgba(255,230,0,0.06), transparent 70%)" }} />
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <RevealSection>
@@ -791,7 +986,6 @@ const Index = () => {
                   <span style={{ color: "#FFE600", textShadow: "0 0 10px #FFE600, 0 0 30px #FF6B00" }}>РЕКЛАМУ</span><br />
                   ЗАМЕТНОЙ
                 </h2>
-
                 <p className="text-white/70 leading-relaxed mb-4 font-rubik text-base">
                   Вас приветствует команда <span className="text-[#FFE600] font-semibold">Визуал ПРО!</span> Мы готовы гарантировать:
                 </p>
@@ -807,7 +1001,6 @@ const Index = () => {
                 <p className="text-white/55 leading-relaxed mb-10 font-rubik">
                   Лучшие материалы, качественная сборка, эксклюзивный дизайн.
                 </p>
-
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { icon: "Award", text: "Собственное производство" },
@@ -816,10 +1009,7 @@ const Index = () => {
                     { icon: "Shield", text: "Гарантия 2 года" },
                   ].map(item => (
                     <div key={item.text} className="flex items-center gap-3">
-                      <div
-                        className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                        style={{ background: "rgba(255,230,0,0.1)", border: "1px solid rgba(255,230,0,0.2)" }}
-                      >
+                      <div className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,230,0,0.1)", border: "1px solid rgba(255,230,0,0.2)" }}>
                         <Icon name={item.icon} size={16} style={{ color: "#FFE600" }} />
                       </div>
                       <span className="text-white/65 text-sm">{item.text}</span>
@@ -832,13 +1022,8 @@ const Index = () => {
             <RevealSection>
               <div className="grid grid-cols-2 gap-4">
                 {STATS.map((s, i) => (
-                  <div
-                    key={s.label}
-                    className="bg-[#111] border border-white/5 rounded-lg p-6 text-center group hover:border-[#FFE600]/25 transition-all duration-300"
-                  >
-                    <div className="font-oswald text-4xl font-bold mb-2" style={{ color: ["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i] }}>
-                      {s.value}
-                    </div>
+                  <div key={s.label} className="bg-[#111] border border-white/5 rounded-lg p-6 text-center group hover:border-[#FFE600]/25 transition-all duration-300">
+                    <div className="font-oswald text-4xl font-bold mb-2" style={{ color: ["#FFE600", "#FF6B00", "#00F5FF", "#FF2D55"][i] }}>{s.value}</div>
                     <div className="text-white/35 text-sm">{s.label}</div>
                   </div>
                 ))}
@@ -913,16 +1098,10 @@ const Index = () => {
                   { icon: "Phone", label: "Телефон", value: "+7 (921) 618-98-86", color: "#FFE600" },
                   { icon: "Mail", label: "Email", value: "vizualpro39@mail.ru", color: "#00F5FF" },
                   { icon: "MapPin", label: "Адрес", value: "г. Калининград, Киевский переулок, д. 1А", color: "#FF6B00" },
-                  { icon: "Clock", label: "Режим работы", value: "Пн–Пт: 9:00–19:00, Сб: 10:00–16:00", color: "#FF2D55" },
+                  { icon: "Clock", label: "Режим работы", value: "Пн–Пт: 10:00–18:00, Сб: 10:00–17:00", color: "#FF2D55" },
                 ].map(item => (
-                  <div
-                    key={item.label}
-                    className="flex items-start gap-4 p-4 bg-[#111] border border-white/5 rounded-lg hover:border-white/10 transition-colors"
-                  >
-                    <div
-                      className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${item.color}15`, border: `1px solid ${item.color}30` }}
-                    >
+                  <div key={item.label} className="flex items-start gap-4 p-4 bg-[#111] border border-white/5 rounded-lg hover:border-white/10 transition-colors">
+                    <div className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0" style={{ background: `${item.color}15`, border: `1px solid ${item.color}30` }}>
                       <Icon name={item.icon} size={18} style={{ color: item.color }} />
                     </div>
                     <div>
@@ -931,6 +1110,25 @@ const Index = () => {
                     </div>
                   </div>
                 ))}
+
+                {/* Telegram contact card */}
+                <a
+                  href="https://t.me/vizualPRO_39"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-4 p-4 border rounded-lg transition-all duration-300 hover:scale-[1.02]"
+                  style={{ background: "rgba(0,136,204,0.08)", borderColor: "rgba(0,136,204,0.3)" }}
+                >
+                  <div className="w-10 h-10 rounded flex items-center justify-center flex-shrink-0" style={{ background: "rgba(0,136,204,0.15)", border: "1px solid rgba(0,136,204,0.3)" }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#0088cc">
+                      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.9 14.41l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.916.175z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-[#0088cc]/60 text-xs font-oswald tracking-wider uppercase mb-1">Telegram</div>
+                    <div className="text-[#0088cc] font-rubik font-medium">@vizualPRO_39 — написать нам</div>
+                  </div>
+                </a>
               </div>
             </RevealSection>
           </div>
@@ -942,21 +1140,22 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="font-oswald text-xl font-bold tracking-wider" style={{ color: "#FFE600" }}>ВИЗУАЛ ПРО</span>
           <span className="text-white/18 text-sm">© 2024 Визуал ПРО. Производство наружной рекламы в Калининграде.</span>
-          <div className="flex gap-6 flex-wrap justify-center">
+          <div className="flex gap-5 flex-wrap justify-center items-center">
             {NAV_LINKS.map(link => (
-              <button
-                key={link.href}
-                onClick={() => scrollTo(link.href)}
-                className="text-white/28 hover:text-white/60 text-sm transition-colors"
-              >
+              <button key={link.href} onClick={() => scrollTo(link.href)} className="text-white/28 hover:text-white/60 text-sm transition-colors">
                 {link.label}
               </button>
             ))}
+            <a href="https://t.me/vizualPRO_39" target="_blank" rel="noopener noreferrer" className="text-[#0088cc]/60 hover:text-[#0088cc] transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.247l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.9 14.41l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.916.175z"/>
+              </svg>
+            </a>
           </div>
         </div>
       </footer>
 
-      <PreviewModal open={previewOpen} onClose={() => setPreviewOpen(false)} onOrder={scrollToContacts} />
+      <PreviewModal open={previewOpen} onClose={() => setPreviewOpen(false)} onOrder={() => scrollTo("#contacts")} />
     </div>
   );
 };
