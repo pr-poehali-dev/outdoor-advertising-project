@@ -25,12 +25,36 @@ const SERVICES = [
 ];
 
 const PORTFOLIO = [
-  { title: "Кафе «Восток»", type: "Объёмные буквы + Неон", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" },
-  { title: "ТЦ Меридиан", type: "Световые короба", img: "https://images.unsplash.com/photo-1567653418876-5bb0e566e1c2?w=600&q=80" },
-  { title: "Barbershop MAXIM", type: "Гибкий неон", img: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80" },
-  { title: "Офис IT-компании", type: "Плоские буквы + 3D", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" },
-  { title: "Ресторан SAKURA", type: "Вывеска + Подсветка", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=80" },
-  { title: "Автосалон Drive", type: "Баннеры + Короба", img: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=600&q=80" },
+  {
+    title: "Неоновый арт-объект",
+    type: "Гибкий неон",
+    desc: "LED-неон на акриловом основании. Бутылка и бокалы вина — декоративный элемент для ресторана или бара. Многоцветный: белый, красный, синий.",
+    img: "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/bucket/b3289d83-4dfa-4f3a-81ea-a101dd7cc8a7.jpg",
+  },
+  {
+    title: "Магазин «Игрушки и канцелярия»",
+    type: "Вывеска + Объёмные буквы + Оклейка витрин",
+    desc: "Яркая детская вывеска с объёмными разноцветными буквами, световым логотипом-коробом и полноцветной оклейкой витрин с персонажами.",
+    img: "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/bucket/81755d01-2e15-45ba-ac80-9ad7d3654194.jpg",
+  },
+  {
+    title: "Магазин «Одежда»",
+    type: "Объёмные буквы с подсветкой + Световой короб",
+    desc: "Объёмные буквы «ОДЕЖДА» с фронтальной LED-подсветкой и круглый световой короб «Магазин распродаж» — эффектная подача бренда в ночное время.",
+    img: "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/bucket/111f46d8-9948-464a-8753-8c1b41d0e40d.jpg",
+  },
+  {
+    title: "РусЛидерПроект",
+    type: "Логотип с контражурной подсветкой",
+    desc: "Фигурный логотип строительной компании из акрила с контражурной LED-подсветкой. Монтаж в офисе на стену — представительский вид и статус.",
+    img: "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/bucket/3ca02f1c-d274-4a47-b277-7d8437ffed33.jpg",
+  },
+  {
+    title: "Светильник «Луна»",
+    type: "3D-печать",
+    desc: "Декоративный светильник в форме луны, напечатанный на 3D-принтере. Точная текстура лунной поверхности, тёплый мягкий свет — идеальный подарок или декор.",
+    img: "https://cdn.poehali.dev/projects/26ee31ff-cccb-473e-bbab-b13675945909/bucket/2d10b7a8-5923-4002-aba1-100b87a5827d.jpg",
+  },
 ];
 
 const STATS = [
@@ -974,14 +998,38 @@ const Index = () => {
                   onMouseEnter={() => setActivePortfolio(i)}
                   onMouseLeave={() => setActivePortfolio(null)}
                 >
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.2) 50%, transparent 100%)" }} />
-                  <div className="absolute inset-0 transition-opacity duration-300" style={{ background: "linear-gradient(to top, rgba(255,230,0,0.15), transparent)", opacity: activePortfolio === i ? 1 : 0 }} />
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.4) 55%, transparent 100%)" }} />
+                  <div
+                    className="absolute inset-0 transition-opacity duration-300"
+                    style={{ background: "linear-gradient(to top, rgba(255,230,0,0.12), transparent)", opacity: activePortfolio === i ? 1 : 0 }}
+                  />
+
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <div className="text-xs font-oswald tracking-widest uppercase mb-1" style={{ color: "#FFE600" }}>{item.type}</div>
-                    <h3 className="font-oswald text-xl font-bold text-white">{item.title}</h3>
+                    <div className="text-xs font-oswald tracking-widest uppercase mb-1" style={{ color: "#FFE600" }}>
+                      {item.type}
+                    </div>
+                    <h3 className="font-oswald text-lg font-bold text-white mb-2 leading-tight">{item.title}</h3>
+                    <p
+                      className="text-white/65 text-xs font-rubik leading-relaxed transition-all duration-400"
+                      style={{
+                        maxHeight: activePortfolio === i ? "80px" : "0px",
+                        opacity: activePortfolio === i ? 1 : 0,
+                        overflow: "hidden",
+                      }}
+                    >
+                      {item.desc}
+                    </p>
                   </div>
-                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0" style={{ background: "#FFE600" }}>
+
+                  <div
+                    className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                    style={{ background: "#FFE600" }}
+                  >
                     <Icon name="ArrowUpRight" size={18} className="text-[#0A0A0A]" />
                   </div>
                 </div>
